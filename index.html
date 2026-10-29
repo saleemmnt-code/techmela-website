@@ -2,66 +2,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechMela - Technology Store</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #172033;
-            text-align: center;
-        }
-        header {
-            background: #111827;
-            color: white;
-            padding: 25px 10px;
-        }
-        h1 {
-            margin: 0;
-            font-size: 32px;
-        }
-        main {
-            padding: 50px 20px;
-        }
-        .card {
-            background: white;
-            padding: 30px 20px;
-            max-width: 500px;
-            margin: auto;
-            border-radius: 15px;
-        }
-        .button {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-        footer {
-            padding: 20px;
-            color: #64748b;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechMela | Technology & Online Store</title>
+<meta name="description" content="Shop computer hardware, gaming accessories and discover the latest technology news at TechMela.">
+<style>
+:root{--navy:#101a2c;--blue:#2563eb;--light:#f3f6fb;--text:#172033}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--light);color:var(--text)}
+header{background:var(--navy);color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.logo{font-size:27px;font-weight:bold}
+.logo span{color:#60a5fa}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-size:14px}
+.hero{padding:55px 6%;background:linear-gradient(120deg,#101a2c,#244c91);color:white}
+.hero h1{font-size:clamp(30px,5vw,48px);margin:0 0 15px}
+.hero p{line-height:1.7;max-width:600px}
+.search{display:flex;gap:8px;max-width:520px;margin-top:24px}
+.search input{flex:1;min-width:0;padding:13px;border:0;border-radius:7px;font-size:15px}
+button,.btn{border:0;border-radius:7px;padding:11px 15px;background:var(--blue);color:white;cursor:pointer;text-decoration:none;display:inline-block}
+.search button{background:#60a5fa;color:#101a2c}
+section{padding:35px 6%}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2{margin-top:0}
+.categories{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.categories button{background:white;color:var(--text);border:1px solid #d7dfeb}
+.categories button:hover{background:#dbeafe}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px #1720330d}
+.card img{width:100%;height:175px;object-fit:cover;background:#e5eaf2}
+.card-body{padding:16px}
+.card h3{margin:0 0 9px;font-size:18px}
+.card p{color:#667085;line-height:1.5;font-size:14px}
+.price{font-size:20px;font-weight:bold;color:#1d4ed8;margin:12px 0}
+.card .btn{width:100%;text-align:center}
+.news-card{padding:20px}
+.news-card h3{margin-top:0}
+.news-card p{line-height:1.6;color:#667085}
+.tag{font-size:12px;color:#1d4ed8;font-weight:bold}
+.about{background:#e7eef9}
+footer{background:var(--navy);color:#dbe4f4;padding:30px 6%;text-align:center;line-height:1.8}
+footer a{color:#93c5fd}
+.small{font-size:13px;color:#9aa8bc}
+</style>
 </head>
 <body>
-    <header>
-        <h1>TechMela</h1>
-        <p>Your Technology Destination</p>
-    </header>
+<header>
+  <div class="logo">Tech<span>Mela</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#news">Tech News</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <main>
-        <div class="card">
-            <h2>Welcome to TechMela!</h2>
-            <p>Discover technology, computers and accessories.</p>
-            <a class="button" href="mailto:info@techmela.digital">Contact Us</a>
-        </div>
-    </main>
+<main>
+<section class="hero" id="home">
+  <h1>Your Technology Destination</h1>
+  <p>Discover computer hardware, gaming accessories and the latest technology updates—all in one place.</p>
+  <div class="search">
+    <input id="searchInput" type="search" placeholder="Search products..." aria-label="Search products">
+    <button onclick="searchProducts()">Search</button>
+  </div>
+</section>
 
-    <footer>
-        © 2026 TechMela. All rights reserved.
-    </footer>
+<section id="shop">
+  <div class="section-head">
+    <h2>Featured Products</h2>
+    <span>Prices in PKR</span>
+  </div>
+  <div class="categories">
+    <button onclick="filterProducts('all')">All Products</button>
+    <button onclick="filterProducts('Computer Parts')">Computer Parts</button>
+    <button onclick="filterProducts('Gaming')">Gaming Accessories</button>
+    <button onclick="filterProducts('Mobile')">Mobile Accessories</button>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<section id="news">
+  <h2>Technology News & Guides</h2>
+  <div class="grid">
+    <article class="card news-card">
+      <span class="tag">PC HARDWARE</span>
+      <h3>How to Choose the Right Graphics Card</h3>
+      <p>Learn about VRAM, performance, resolution and the features to compare before choosing a graphics card.</p>
+    </article>
+    <article class="card news-card">
+      <span class="tag">GAMING</span>
+      <h3>Build a Gaming PC on a Budget</h3>
+      <p>Understand how to balance your processor, graphics card, RAM and storage for better gaming value.</p>
+    </article>
+    <article class="card news-card">
+      <span class="tag">TECH GUIDE</span>
+      <h3>SSD vs HDD: What Is the Difference?</h3>
+      <p>Explore storage speed, capacity and which option makes sense for your computer.</p>
+    </article>
+  </div>
+  <p class="small">These are introductory guides. Add verified, dated news articles as your website grows.</p>
+</section>
+
+<section class="about" id="about">
+  <h2>About TechMela</h2>
+  <p>TechMela brings technology products, computer accessories, gaming gear and helpful technology guides together in one convenient destination.</p>
+</section>
+</main>
+
+<footer id="contact">
+  <h2>TechMela</h2>
+  <p>Technology, Computers & Accessories</p>
+  <p>Questions or orders? Contact us on WhatsApp using the product order buttons.</p>
+  <p>© 2026 TechMela. All rights reserved.</p>
+</footer>
+
+<script>
+const WHATSAPP_NUMBER = "92YOURNUMBER"; // Replace with your WhatsApp number, digits only, including 92.
+
+const products = [
+  {name:"Gaming Keyboard",category:"Gaming",price:3500,description:"A keyboard for everyday gaming and typing.",image:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80"},
+  {name:"Gaming Mouse",category:"Gaming",price:1800,description:"A comfortable mouse for gaming and work.",image:"https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=600&q=80"},
+  {name:"Graphics Card",category:"Computer Parts",price:25000,description:"Explore graphics cards for your PC build.",image:"https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=600&q=80"},
+  {name:"Computer Accessories",category:"Computer Parts",price:2200,description:"Useful accessories for your computer setup.",image:"https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=600&q=80"},
+  {name:"Mobile Accessories",category:"Mobile",price:1200,description:"Everyday accessories for mobile devices.",image:"https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&w=600&q=80"},
+  {name:"Gaming Headset",category:"Gaming",price:4200,description:"A headset for gaming and online communication.",image:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"}
+];
+
+function renderProducts(list){
+  const grid=document.getElementById("productGrid");
+  grid.innerHTML="";
+  if(!list.length){
+    grid.innerHTML="<p>No products found. Try another search.</p>";
+    return;
+  }
+  list.forEach(p=>{
+    const card=document.createElement("article");
+    card.className="card";
+    const img=document.createElement("img");
+    img.src=p.image;
+    img.alt=p.name;
+    img.loading="lazy";
+    img.onerror=()=>{img.style.display="none";};
+    const body=document.createElement("div");
+    body.className="card-body";
+    const title=document.createElement("h3");
+    title.textContent=p.name;
+    const desc=document.createElement("p");
+    desc.textContent=p.description;
+    const price=document.createElement("div");
+    price.className="price";
+    price.textContent="Rs. "+p.price.toLocaleString("en-PK");
+    const btn=document.createElement("button");
+    btn.className="btn";
+    btn.textContent="Order on WhatsApp";
+    btn.style.width="100%";
+    btn.onclick=()=>orderProduct(p.name,p.price);
+    body.append(title,desc,price,btn);
+    card.append(img,body);
+    grid.append(card);
+  });
+}
+
+function orderProduct(name,price){
+  if(WHATSAPP_NUMBER.includes("YOURNUMBER")){
+    alert("WhatsApp setup is not complete yet. Add your business WhatsApp number in the code first.");
+    return;
+  }
+  const message="Assalam-o-Alaikum! I want to order: "+name+
+    "%0APrice: Rs. "+price.toLocaleString("en-PK")+
+    "%0APlease confirm availability and delivery.";
+  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+message,"_blank");
+}
+
+function filterProducts(category){
+  renderProducts(category==="all"?products:products.filter(p=>
+    p.category===category || (category==="Gaming Accessories" && p.category==="Gaming") ||
+    (category==="Computer Parts" && p.category==="Computer Parts") ||
+    (category==="Mobile Accessories" && p.category==="Mobile")
+  ));
+}
+
+function searchProducts(){
+  const query=document.getElementById("searchInput").value.toLowerCase().trim();
+  renderProducts(products.filter(p=>
+    (p.name+" "+p.category+" "+p.description).toLowerCase().includes(query)
+  ));
+}
+
+document.getElementById("searchInput").addEventListener("keydown",e=>{
+  if(e.key==="Enter") searchProducts();
+});
+
+renderProducts(products);
+</script>
 </body>
 </html>
