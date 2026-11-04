@@ -20,10 +20,23 @@ class Category(models.Model):
         return self.name
 
 
+class Brand(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    logo = CloudinaryField("logo", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Product(models.Model):
     category = models.ForeignKey(
         Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    brand = models.ForeignKey(
+        Brand,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
@@ -39,6 +52,27 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
+class ProductVariation(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="variations"
+    )
+    name = models.CharField(max_length=100)
+    value = models.CharField(max_length=150)
+    price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+    is_available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.product.name} - {self.name}: {self.value}"
+
+
 class ProductImage(models.Model):
     product = models.ForeignKey(
         Product,
@@ -51,7 +85,8 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Image - {self.product.name}"
-        
+
+
 class News(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True)
