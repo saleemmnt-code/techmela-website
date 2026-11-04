@@ -1,0 +1,183 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMela | Mobiles & Accessories</title>
+    <meta name="description" content="Shop button phones and mobile accessories at TechMela. Delivery across Pakistan.">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; color: #101b35; background: #f7f9fc; }
+        a { text-decoration: none; color: inherit; }
+        .topbar { background: #071e49; color: white; padding: 11px 5%; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; }
+        header { background: white; padding: 18px 5%; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .logo { font-size: 30px; font-weight: 800; color: #087cf0; }
+        .logo span { color: #102344; }
+        .search { flex: 1; max-width: 520px; display: flex; border: 1px solid #dce3ef; border-radius: 12px; overflow: hidden; }
+        .search input { flex: 1; padding: 14px; border: 0; outline: 0; min-width: 0; }
+        .search button { background: #087cf0; color: white; border: 0; padding: 0 22px; cursor: pointer; }
+        nav { background: white; padding: 0 5% 16px; display: flex; gap: 28px; flex-wrap: wrap; font-weight: bold; }
+        nav a:hover { color: #087cf0; }
+        .hero { background: linear-gradient(110deg,#07152f,#063b83); color: white; padding: 65px 8%; display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 330px; }
+        .hero h1 { font-size: clamp(34px,5vw,58px); margin-bottom: 12px; }
+        .hero p { font-size: 20px; color: #dceaff; margin-bottom: 24px; }
+        .hero .button { display: inline-block; background: #087cf0; color: white; padding: 15px 25px; border-radius: 30px; font-weight: bold; }
+        .hero-art { font-size: 100px; }
+        .benefits { display: grid; grid-template-columns: repeat(4,1fr); gap: 15px; padding: 25px 5%; background: white; text-align: center; }
+        .benefits strong { display: block; margin-bottom: 5px; }
+        .section { padding: 38px 5%; }
+        .section-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; gap: 12px; }
+        .section-heading h2 { font-size: 27px; }
+        .categories { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+        .category { padding: 28px; border-radius: 17px; background: #dceeff; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .category:nth-child(2) { background: #eee7ff; }
+        .category h3 { font-size: 25px; margin-bottom: 10px; }
+        .category a { display: inline-block; background: #087cf0; color: white; padding: 11px 18px; border-radius: 25px; margin-top: 15px; font-weight: bold; }
+        .category .symbol { font-size: 65px; }
+        .products { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 15px; }
+        .product { background: white; border: 1px solid #e8edf5; border-radius: 15px; padding: 13px; box-shadow: 0 4px 14px #12284b0b; }
+        .product img { width: 100%; height: 155px; object-fit: contain; margin-bottom: 12px; }
+        .product h3 { font-size: 15px; margin-bottom: 8px; }
+        .product p { font-size: 13px; color: #667085; min-height: 32px; }
+        .price { color: #087cf0; font-size: 20px; font-weight: bold; margin: 12px 0; }
+        .order { display: block; text-align: center; background: #079b49; color: white; padding: 11px 8px; border-radius: 9px; font-size: 13px; font-weight: bold; }
+        .empty { background: white; padding: 30px; border-radius: 12px; color: #667085; }
+        footer { background: #071e49; color: white; padding: 35px 5%; text-align: center; line-height: 2; }
+        @media(max-width:900px) {
+            .products { grid-template-columns: repeat(3,minmax(0,1fr)); }
+            .benefits { grid-template-columns: repeat(2,1fr); }
+        }
+        @media(max-width:600px) {
+            header { gap: 13px; }
+            .logo { font-size: 25px; }
+            .search { flex-basis: 100%; order: 2; }
+            nav { gap: 16px; font-size: 13px; }
+            .hero { padding: 42px 6%; min-height: 280px; }
+            .hero-art { display: none; }
+            .hero p { font-size: 16px; }
+            .categories { grid-template-columns: 1fr; }
+            .category h3 { font-size: 21px; }
+            .category .symbol { font-size: 45px; }
+            .products { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+            .product { padding: 10px; }
+            .product img { height: 120px; }
+            .section { padding: 28px 4%; }
+            .section-heading h2 { font-size: 21px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <span>Delivery in Multan & All Over Pakistan</span>
+    <span>Safe & Reliable Products</span>
+    <span>WhatsApp Orders Available</span>
+</div>
+
+<header>
+    <a class="logo" href="/">Tech<span>Mela</span></a>
+    <form class="search" method="get" action="/">
+        <input type="search" name="q" placeholder="Search mobiles or accessories...">
+        <button type="submit">Search</button>
+    </form>
+</header>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="#phones">Button Phones</a>
+    <a href="#accessories">Mobile Accessories</a>
+    <a href="#products">Products</a>
+    <a href="#news">Tech News</a>
+    <a href="#contact">Contact Us</a>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>Upgrade Your Tech Life.</h1>
+        <p>Button phones and mobile accessories at great prices.</p>
+        <a class="button" href="#products">Explore Products →</a>
+    </div>
+    <div class="hero-art">📱</div>
+</section>
+
+<div class="benefits">
+    <div><strong>Fast Delivery</strong><small>Across Pakistan</small></div>
+    <div><strong>Quality Products</strong><small>Carefully selected</small></div>
+    <div><strong>Easy Ordering</strong><small>WhatsApp support</small></div>
+    <div><strong>Customer Support</strong><small>We're here to help</small></div>
+</div>
+
+<section class="section">
+    <div class="section-heading"><h2>Shop by Category</h2></div>
+    <div class="categories">
+        <div class="category" id="phones">
+            <div>
+                <h3>Button Phones</h3>
+                <p>Keypad mobiles for everyday use.</p>
+                <a href="#products">Shop Now →</a>
+            </div>
+            <div class="symbol">📱</div>
+        </div>
+        <div class="category" id="accessories">
+            <div>
+                <h3>Mobile Accessories</h3>
+                <p>Chargers, cables, handsfree, covers and more.</p>
+                <a href="#products">Shop Now →</a>
+            </div>
+            <div class="symbol">🎧</div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="products">
+    <div class="section-heading">
+        <h2>Featured Products</h2>
+    </div>
+    <div class="products">
+        {% for product in products %}
+        {% if product.is_available %}
+        <article class="product">
+            {% if product.image_url %}
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            {% else %}
+            <div style="height:155px;display:grid;place-items:center;font-size:55px;">📱</div>
+            {% endif %}
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description|truncatewords:10 }}</p>
+            <div class="price">Rs. {{ product.price }}</div>
+            <a class="order" href="https://wa.me/923299127847?text=I%20want%20to%20order%20{{ product.name|urlencode }}" target="_blank">Order on WhatsApp</a>
+        </article>
+        {% endif %}
+        {% empty %}
+        <div class="empty">Products will appear here soon. Please visit us again!</div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section" id="news">
+    <div class="section-heading"><h2>Latest Tech News</h2></div>
+    {% for article in news %}
+    {% if article.published %}
+    <article class="product" style="margin-bottom:12px;">
+        <h3>{{ article.title }}</h3>
+        <p>{{ article.summary|truncatewords:25 }}</p>
+    </article>
+    {% endif %}
+    {% empty %}
+    <div class="empty">Latest technology news coming soon.</div>
+    {% endfor %}
+</section>
+
+<footer id="contact">
+    <h2>TechMela</h2>
+    <p>Mobiles & Accessories</p>
+    <p>Delivery in Multan & All Over Pakistan</p>
+    <p>Contact us on WhatsApp for orders and support.</p>
+    <small>© 2026 TechMela. All rights reserved.</small>
+</footer>
+
+</body>
+</html>

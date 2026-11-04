@@ -3,3 +3,6 @@ gunicorn
 dj-database-url
 psycopg[binary]
 whitenoise
+cloudinary
+django-cloudinary-storage
+Pillow

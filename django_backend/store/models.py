@@ -1,6 +1,6 @@
 
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 
 
 class Category(models.Model):
@@ -39,7 +39,19 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="images"
+    )
+    image = CloudinaryField("image")
+    alt_text = models.CharField(max_length=200, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Image - {self.product.name}"
+        
 class News(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True)
