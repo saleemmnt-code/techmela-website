@@ -187,3 +187,71 @@ footer a {
         height: 58px;
     }
 }
+/* TechMela Categories Page Footer */
+
+.site-footer {
+    background: #020e17;
+    border-top: 1px solid #24475a;
+    padding: 45px 7% 15px;
+    margin-top: 50px;
+    color: #dce8ef;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-brand h2 {
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.footer-brand h2 span {
+    color: #00e879;
+}
+
+.footer-brand p {
+    color: #9bb0bf;
+    max-width: 350px;
+    line-height: 1.7;
+}
+
+.footer-links h3 {
+    color: #00e879;
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    display: block;
+    color: #dce8ef;
+    text-decoration: none;
+    margin-bottom: 12px;
+}
+
+.footer-links a:hover {
+    color: #00e879;
+}
+
+.footer-bottom {
+    border-top: 1px solid #24475a;
+    text-align: center;
+    margin-top: 35px;
+    padding-top: 18px;
+    color: #9bb0bf;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .site-footer {
+        padding: 35px 20px 15px;
+    }
+}

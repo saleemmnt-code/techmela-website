@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About Us | TechMela</title>
+
+<link rel="stylesheet" href="theme.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #031521;
+    color: #dce8ef;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: #020e17;
+    border-bottom: 1px solid #24475a;
+    padding: 12px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.site-logo img {
+    width: 210px;
+    height: 65px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #00e879;
+}
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: auto;
+}
+
+.hero {
+    text-align: center;
+    padding: 85px 20px;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(0,232,121,.13), transparent 35%),
+        linear-gradient(120deg, #031521, #092b40);
+}
+
+.hero h1 {
+    color: #00e879;
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+    color: #dce8ef;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.section {
+    padding: 55px 0;
+}
+
+.section h2 {
+    color: #00e879;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.section p {
+    color: #bdccd6;
+    line-height: 1.9;
+    font-size: 16px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    align-items: center;
+}
+
+.about-card {
+    background: #071e2c;
+    border: 1px solid #24475a;
+    border-radius: 15px;
+    padding: 28px;
+}
+
+.about-card h3 {
+    color: #00e879;
+    margin-top: 0;
+}
+
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.focus-card {
+    background: #071e2c;
+    border: 1px solid #24475a;
+    border-radius: 14px;
+    padding: 25px;
+    text-align: center;
+}
+
+.focus-card h3 {
+    color: #00e879;
+}
+
+.focus-card p {
+    color: #bdccd6;
+    line-height: 1.7;
+}
+
+.cta {
+    text-align: center;
+    background: #071e2c;
+    border: 1px solid #24475a;
+    border-radius: 15px;
+    padding: 45px 20px;
+    margin: 30px auto 60px;
+}
+
+.cta h2 {
+    color: #00e879;
+}
+
+.cta p {
+    color: #bdccd6;
+    line-height: 1.7;
+}
+
+.cta a {
+    display: inline-block;
+    background: #00b94f;
+    color: white;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.cta a:hover {
+    background: #00e879;
+    color: #031521;
+}
+
+.site-footer {
+    background: #020e17;
+    border-top: 1px solid #24475a;
+    padding: 45px 7% 15px;
+    color: #dce8ef;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-brand h2 {
+    color: white;
+}
+
+.footer-brand h2 span,
+.footer-links h3 {
+    color: #00e879;
+}
+
+.footer-brand p {
+    color: #9bb0bf;
+    line-height: 1.7;
+}
+
+.footer-links a {
+    display: block;
+    color: #dce8ef;
+    text-decoration: none;
+    margin-bottom: 12px;
+}
+
+.footer-links a:hover {
+    color: #00e879;
+}
+
+.footer-bottom {
+    border-top: 1px solid #24475a;
+    text-align: center;
+    margin-top: 35px;
+    padding-top: 18px;
+    color: #9bb0bf;
+    font-size: 13px;
+}
+
+@media(max-width: 700px) {
+    header {
+        flex-direction: column;
+    }
+
+    .site-logo img {
+        width: 175px;
+        height: 55px;
+    }
+
+    nav {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 60px 15px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .about-grid,
+    .focus-grid,
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 35px 0;
+    }
+
+    .site-footer {
+        padding: 35px 20px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="site-logo">
+        <img src="images/techmela-logo.png" alt="TechMela Logo">
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="categories.html">Categories</a>
+        <a href="news.html">Tech News</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>About TechMela</h1>
+    <p>
+        Your destination for mobile phones, mobile accessories
+        and smart gadgets. Discover technology that keeps you
+        connected and makes everyday life easier.
+    </p>
+</section>
+
+<main class="container">
+
+    <section class="section">
+        <div class="about-grid">
+
+            <div>
+                <h2>Who We Are</h2>
+
+                <p>
+                    TechMela is an online technology shopping destination
+                    focused on mobile phones, mobile accessories,
+                    smart gadgets and technology products.
+                </p>
+
+                <p>
+                    Our goal is to make discovering and purchasing
+                    useful technology products simple and convenient
+                    for customers across Pakistan.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>Welcome to TechMela</h3>
+
+                <p>
+                    From everyday mobile essentials to smart gadgets
+                    and mobile gaming accessories, we aim to bring
+                    useful technology products together in one place.
+                </p>
+
+                <p>
+                    Explore our collections and find products
+                    that match your needs.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>What We Focus On</h2>
+
+        <div class="focus-grid">
+
+            <div class="focus-card">
+                <h3>Mobile Phones</h3>
+                <p>
+                    Explore mobile phones for everyday communication
+                    and personal use.
+                </p>
+            </div>
+
+            <div class="focus-card">
+                <h3>Mobile Accessories</h3>
+                <p>
+                    Discover chargers, cables, earbuds, power banks
+                    and other useful accessories.
+                </p>
+            </div>
+
+            <div class="focus-card">
+                <h3>Smart Gadgets</h3>
+                <p>
+                    Explore smart watches, gaming accessories
+                    and modern technology products.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="about-grid">
+
+            <div class="about-card">
+                <h3>Our Mission</h3>
+                <p>
+                    To make technology products accessible through
+                    a convenient online shopping experience,
+                    clear product information and simple ordering.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>Our Commitment</h3>
+                <p>
+                    We aim to provide helpful product information,
+                    convenient WhatsApp ordering and a smooth
+                    shopping experience for our customers.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Explore TechMela</h2>
+
+        <p>
+            Find your next mobile phone, accessory or smart gadget.
+            Explore our latest collections today.
+        </p>
+
+        <a href="shop.html">Explore Products</a>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <h2>Tech<span>Mela</span></h2>
+            <p>
+                Your destination for mobile phones,
+                accessories and smart gadgets.
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+        </div>
+
+        <div class="footer-links">
+            <h3>Customer Support</h3>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 TechMela. All Rights Reserved.
+    </div>
+
+</footer>
+
+</body>
+</html>

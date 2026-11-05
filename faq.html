@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | TechMela</title>
+<link rel="stylesheet" href="theme.css">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:#031521;
+    color:#dce8ef;
+    font-family:Arial,sans-serif;
+}
+
+header{
+    background:#020e17;
+    border-bottom:1px solid #24475a;
+    padding:12px 4%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.site-logo img{
+    width:210px;
+    height:65px;
+    object-fit:contain;
+}
+
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-weight:bold}
+nav a:hover{color:#00e879}
+
+.container{
+    width:90%;
+    max-width:950px;
+    margin:auto;
+}
+
+.hero{
+    text-align:center;
+    padding:65px 20px;
+    background:linear-gradient(120deg,#031521,#092b40);
+}
+
+.hero h1{
+    color:#00e879;
+    font-size:38px;
+}
+
+.hero p{
+    color:#bdccd6;
+    line-height:1.7;
+}
+
+.faq-section{
+    padding:45px 0 65px;
+}
+
+.faq-section h2{
+    color:#00e879;
+    margin:35px 0 18px;
+}
+
+.faq-item{
+    background:#071e2c;
+    border:1px solid #24475a;
+    border-radius:10px;
+    margin-bottom:12px;
+    overflow:hidden;
+}
+
+.faq-question{
+    width:100%;
+    background:transparent;
+    border:0;
+    color:#fff;
+    padding:19px;
+    text-align:left;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.faq-question:hover{
+    color:#00e879;
+}
+
+.faq-question span{
+    color:#00e879;
+    font-size:22px;
+}
+
+.faq-answer{
+    display:none;
+    padding:0 19px 19px;
+    color:#bdccd6;
+    line-height:1.8;
+}
+
+.faq-item.active .faq-answer{
+    display:block;
+}
+
+.faq-item.active .faq-question span{
+    transform:rotate(45deg);
+}
+
+.contact-help{
+    text-align:center;
+    background:#071e2c;
+    border:1px solid #24475a;
+    border-radius:14px;
+    padding:35px 20px;
+    margin-bottom:60px;
+}
+
+.contact-help h2{color:#00e879}
+
+.contact-help p{
+    color:#bdccd6;
+    line-height:1.7;
+}
+
+.contact-help a{
+    display:inline-block;
+    background:#00b94f;
+    color:white;
+    text-decoration:none;
+    padding:13px 25px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+.site-footer{
+    background:#020e17;
+    border-top:1px solid #24475a;
+    padding:40px 7% 15px;
+}
+
+.footer-content{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:35px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.footer-brand h2 span,
+.footer-links h3{
+    color:#00e879;
+}
+
+.footer-brand p{
+    color:#9bb0bf;
+    line-height:1.7;
+}
+
+.footer-links a{
+    display:block;
+    color:#dce8ef;
+    text-decoration:none;
+    margin-bottom:12px;
+}
+
+.footer-links a:hover{color:#00e879}
+
+.footer-bottom{
+    border-top:1px solid #24475a;
+    text-align:center;
+    margin-top:30px;
+    padding-top:18px;
+    color:#9bb0bf;
+    font-size:13px;
+}
+
+@media(max-width:700px){
+    header{flex-direction:column}
+    .site-logo img{width:175px;height:55px}
+    nav{justify-content:center;gap:13px}
+    .hero h1{font-size:30px}
+    .footer-content{grid-template-columns:1fr}
+    .faq-question{font-size:15px;padding:16px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="site-logo">
+        <img src="images/techmela-logo.png" alt="TechMela Logo">
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="categories.html">Categories</a>
+        <a href="news.html">Tech News</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Frequently Asked Questions</h1>
+    <p>Find answers to common questions about shopping at TechMela.</p>
+</section>
+
+<main class="container">
+
+<section class="faq-section">
+
+    <h2>Orders & Shopping</h2>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            How can I place an order?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Browse our products, select your desired item and click
+            the WhatsApp Order button. You can then confirm your order
+            directly through WhatsApp.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Can I order through WhatsApp?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Yes. TechMela provides WhatsApp ordering for customer
+            convenience. Contact us at +92 329 9127847.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Are product prices shown in Pakistani Rupees?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Yes. Product prices displayed on our website are in
+            Pakistani Rupees (PKR).
+        </div>
+    </div>
+
+    <h2>Payments & Delivery</h2>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Do you deliver across Pakistan?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            We aim to serve customers in Multan and across Pakistan.
+            Please confirm delivery availability and charges when
+            placing your order.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Which payment methods are available?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Please contact us through WhatsApp to confirm the available
+            payment methods before placing your order.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            How long does delivery take?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Delivery time depends on your location, product availability
+            and courier service. Please confirm the estimated delivery
+            time when ordering.
+        </div>
+    </div>
+
+    <h2>Products & Support</h2>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Are all products available in stock?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Product availability can change. Please confirm stock
+            availability with our team before making payment.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Do products come with a warranty?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Warranty coverage depends on the individual product
+            and manufacturer. Please confirm warranty details
+            before ordering.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Can I return or exchange a product?
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            Return and exchange eligibility depends on the product
+            and its condition. Please contact our team before returning
+            or exchanging an item.
+        </div>
+    </div>
+
+</section>
+
+<section class="contact-help">
+    <h2>Still Have Questions?</h2>
+    <p>Our team is available to help with product inquiries and orders.</p>
+    <a href="https://wa.me/923299127847" target="_blank">
+        Contact Us on WhatsApp
+    </a>
+</section>
+
+</main>
+
+<footer class="site-footer">
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <h2>Tech<span>Mela</span></h2>
+            <p>Your destination for mobile phones, accessories and smart gadgets.</p>
+        </div>
+
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+        </div>
+
+        <div class="footer-links">
+            <h3>Customer Support</h3>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="faq.html">FAQs</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 TechMela. All Rights Reserved.
+    </div>
+
+</footer>
+
+<script>
+document.querySelectorAll(".faq-question").forEach(button => {
+    button.addEventListener("click", () => {
+        const item = button.parentElement;
+        item.classList.toggle("active");
+    });
+});
+</script>
+
+</body>
+</html>

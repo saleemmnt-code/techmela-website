@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | TechMela</title>
+    <link rel="stylesheet" href="theme.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #031521;
+            color: #dce8ef;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: #020e17;
+            border-bottom: 1px solid #24475a;
+            padding: 12px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .site-logo img {
+            width: 210px;
+            height: 65px;
+            object-fit: contain;
+        }
+
+        nav { display: flex; gap: 22px; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        nav a:hover { color: #00e879; }
+
+        .container { width: 92%; max-width: 1250px; margin: auto; }
+
+        .heading { text-align: center; padding: 38px 0 24px; }
+        .heading h1 { color: #00e879; }
+        .heading p { color: #9bb0bf; }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            background: #071e2c;
+            border: 1px solid #24475a;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .category-card:hover { border-color: #00e879; }
+
+        .category-card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .category-card h3 {
+            margin: 0;
+            padding: 16px;
+            text-align: center;
+            color: white;
+        }
+
+        .category-card.active { border: 2px solid #00e879; }
+
+        .products-heading { margin: 45px 0 20px; color: #00e879; }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+
+        .product-card {
+            background: #0a2636;
+            border: 1px solid #24475a;
+            border-radius: 12px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 145px;
+            object-fit: contain;
+            background: white;
+            border-radius: 7px;
+        }
+
+        .product-card h3 { font-size: 15px; min-height: 36px; }
+        .price { color: #00e879; font-weight: bold; }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: 0;
+            border-radius: 7px;
+            background: #192957;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .whatsapp { background: #00b94f; }
+
+        .message { text-align: center; padding: 25px; color: #9bb0bf; }
+
+        footer {
+            text-align: center;
+            background: #020e17;
+            padding: 25px;
+            margin-top: 60px;
+            color: #9bb0bf;
+        }
+
+        @media (max-width: 900px) {
+            .products-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; }
+            .site-logo img { width: 175px; height: 55px; }
+            nav { justify-content: center; gap: 15px; }
+            .category-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .category-card img { height: 125px; }
+            .category-card h3 { font-size: 14px; padding: 12px 5px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .product-card img { height: 125px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="site-logo">
+        <img src="images/techmela-logo.png" alt="TechMela">
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="categories.html">Categories</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="heading">
+        <h1>Shop By Categories</h1>
+        <p>Explore our mobile phones, accessories and smart gadgets.</p>
+    </section>
+
+    <section class="category-grid" id="categoryGrid"></section>
+
+    <h2 class="products-heading" id="productsHeading">All Products</h2>
+
+    <section class="products-grid" id="productsGrid">
+        <p class="message">Loading products...</p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h2>Tech<span>Mela</span></h2>
+            <p>Your destination for mobile phones, accessories and smart gadgets.</p>
+        </div>
+
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+        </div>
+
+        <div class="footer-links">
+            <h3>Customer Support</h3>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 TechMela. All Rights Reserved.
+    </div>
+</footer>
+
+<script>
+const API_URL = "https://techmela-website.onrender.com/api/products/";
+const WHATSAPP_NUMBER = "923299127847";
+
+const categories = [
+    { name: "Mobiles", image: "mobiles.png" },
+    { name: "Mobile Accessories", image: "mobile-accessories.png" },
+    { name: "Earbuds", image: "earbuds.png" },
+    { name: "Smart Watches", image: "smart-watches.png" },
+    { name: "Power Banks", image: "power-banks.png" },
+    { name: "Gaming Accessories", image: "gaming-accessories.png" }
+];
+
+let allProducts = [];
+let activeCategory = "";
+
+const categoryGrid = document.getElementById("categoryGrid");
+const productsGrid = document.getElementById("productsGrid");
+
+categories.forEach(category => {
+    const card = document.createElement("article");
+    card.className = "category-card";
+
+    const img = document.createElement("img");
+    img.src = "images/categories/" + category.image;
+    img.alt = category.name;
+    img.loading = "lazy";
+
+    const title = document.createElement("h3");
+    title.textContent = category.name;
+
+    card.appendChild(img);
+    card.appendChild(title);
+
+    card.addEventListener("click", () => {
+        selectCategory(category.name, card);
+    });
+
+    categoryGrid.appendChild(card);
+});
+
+function selectCategory(name, selectedCard) {
+    activeCategory = name;
+
+    document.querySelectorAll(".category-card").forEach(card => {
+        card.classList.remove("active");
+    });
+
+    selectedCard.classList.add("active");
+
+    document.getElementById("productsHeading").textContent =
+        name + " Products";
+
+    renderProducts();
+
+    document.getElementById("productsHeading").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function renderProducts() {
+    productsGrid.innerHTML = "";
+
+    const filtered = activeCategory
+        ? allProducts.filter(product =>
+            (product.category?.name || "").toLowerCase() ===
+            activeCategory.toLowerCase()
+        )
+        : allProducts;
+
+    if (!filtered.length) {
+        productsGrid.innerHTML =
+            '<p class="message">No products found in this category yet.</p>';
+        return;
+    }
+
+    filtered.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "product-card";
+
+        const imageUrl =
+            product.images?.[0]?.image || product.image_url || "";
+
+        const img = document.createElement("img");
+        img.src = imageUrl.replace(/^http:\/\//, "https://");
+        img.alt = product.name || "Product";
+        img.loading = "lazy";
+
+        const title = document.createElement("h3");
+        title.textContent = product.name || "Product";
+
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent =
+            "Rs. " + Number(product.price || 0).toLocaleString("en-PK");
+
+        const details = document.createElement("button");
+        details.className = "btn";
+        details.textContent = "View Details";
+
+        details.onclick = event => {
+            event.stopPropagation();
+            window.location.href =
+                "product.html?id=" + encodeURIComponent(product.id);
+        };
+
+        const order = document.createElement("button");
+        order.className = "btn whatsapp";
+        order.textContent = "Order on WhatsApp";
+
+        order.onclick = event => {
+            event.stopPropagation();
+
+            const message =
+                "Assalamualaikum, I want to order " +
+                product.name + " (Rs. " + product.price + ").";
+
+            window.open(
+                "https://wa.me/" + WHATSAPP_NUMBER +
+                "?text=" + encodeURIComponent(message),
+                "_blank"
+            );
+        };
+
+        card.onclick = () => {
+            window.location.href =
+                "product.html?id=" + encodeURIComponent(product.id);
+        };
+
+        card.appendChild(img);
+        card.appendChild(title);
+        card.appendChild(price);
+        card.appendChild(details);
+        card.appendChild(order);
+
+        productsGrid.appendChild(card);
+    });
+}
+
+async function loadProducts() {
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("API request failed");
+        }
+
+        const data = await response.json();
+
+        allProducts = Array.isArray(data)
+            ? data
+            : (data.results || []);
+
+        renderProducts();
+
+    } catch (error) {
+        console.error("Product loading failed:", error);
+
+        productsGrid.innerHTML =
+            '<p class="message">Products could not be loaded. Please refresh.</p>';
+    }
+}
+
+loadProducts();
+</script>
+
+</body>
+</html>
