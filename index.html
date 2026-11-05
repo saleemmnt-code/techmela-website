@@ -117,84 +117,142 @@ footer a{color:#93c5fd}
   <p>© 2026 TechMela. All rights reserved.</p>
 </footer>
 
+
 <script>
-const WHATSAPP_NUMBER = "92YOURNUMBER"; // Replace with your WhatsApp number, digits only, including 92.
+const API_URL = "https://techmela-website.onrender.com/api/products/";
+const WHATSAPP_NUMBER = "923299127847";
 
-const products = [
-  {name:"Gaming Keyboard",category:"Gaming",price:3500,description:"A keyboard for everyday gaming and typing.",image:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80"},
-  {name:"Gaming Mouse",category:"Gaming",price:1800,description:"A comfortable mouse for gaming and work.",image:"https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=600&q=80"},
-  {name:"Graphics Card",category:"Computer Parts",price:25000,description:"Explore graphics cards for your PC build.",image:"https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=600&q=80"},
-  {name:"Computer Accessories",category:"Computer Parts",price:2200,description:"Useful accessories for your computer setup.",image:"https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=600&q=80"},
-  {name:"Mobile Accessories",category:"Mobile",price:1200,description:"Everyday accessories for mobile devices.",image:"https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&w=600&q=80"},
-  {name:"Gaming Headset",category:"Gaming",price:4200,description:"A headset for gaming and online communication.",image:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"}
-];
+let products = [];
+let activeCategory = "all";
 
-function renderProducts(list){
-  const grid=document.getElementById("productGrid");
-  grid.innerHTML="";
-  if(!list.length){
-    grid.innerHTML="<p>No products found. Try another search.</p>";
-    return;
-  }
-  list.forEach(p=>{
-    const card=document.createElement("article");
-    card.className="card";
-    const img=document.createElement("img");
-    img.src=p.image;
-    img.alt=p.name;
-    img.loading="lazy";
-    img.onerror=()=>{img.style.display="none";};
-    const body=document.createElement("div");
-    body.className="card-body";
-    const title=document.createElement("h3");
-    title.textContent=p.name;
-    const desc=document.createElement("p");
-    desc.textContent=p.description;
-    const price=document.createElement("div");
-    price.className="price";
-    price.textContent="Rs. "+p.price.toLocaleString("en-PK");
-    const btn=document.createElement("button");
-    btn.className="btn";
-    btn.textContent="Order on WhatsApp";
-    btn.style.width="100%";
-    btn.onclick=()=>orderProduct(p.name,p.price);
-    body.append(title,desc,price,btn);
-    card.append(img,body);
-    grid.append(card);
-  });
+async function loadProducts() {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = "<p>Loading products...</p>";
+
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("API error: " + response.status);
+        }
+
+        products = await response.json();
+        renderProducts(products);
+
+    } catch (error) {
+        console.error("Product loading failed:", error);
+        grid.innerHTML =
+            "<p>Products could not be loaded. Please try again later.</p>";
+    }
 }
 
-function orderProduct(name,price){
-  if(WHATSAPP_NUMBER.includes("YOURNUMBER")){
-    alert("WhatsApp setup is not complete yet. Add your business WhatsApp number in the code first.");
-    return;
-  }
-  const message="Assalam-o-Alaikum! I want to order: "+name+
-    "%0APrice: Rs. "+price.toLocaleString("en-PK")+
-    "%0APlease confirm availability and delivery.";
-  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+message,"_blank");
+function renderProducts(list) {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = "";
+
+    if (!list.length) {
+        grid.innerHTML = "<p>No products available right now.</p>";
+        return;
+    }
+
+    list.forEach(p => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const imageUrl =
+    (p.images && p.images.length > 0 && p.images[0].image) ||
+    p.image_url;
+
+if (imageUrl) {
+    const img = document.createElement("img");
+    img.src = imageUrl.replace(/^http:\/\//, "https://");
+    img.alt = p.name;
+    img.loading = "lazy";
+    img.onerror = () => img.style.display = "none";
+    card.appendChild(img);
 }
 
-function filterProducts(category){
-  renderProducts(category==="all"?products:products.filter(p=>
-    p.category===category || (category==="Gaming Accessories" && p.category==="Gaming") ||
-    (category==="Computer Parts" && p.category==="Computer Parts") ||
-    (category==="Mobile Accessories" && p.category==="Mobile")
-  ));
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        const title = document.createElement("h3");
+        title.textContent = p.name;
+
+        const desc = document.createElement("p");
+        desc.textContent = p.description || "";
+
+        const price = document.createElement("div");
+        price.className = "price";
+        price.textContent =
+            "Rs. " + Number(p.price).toLocaleString("en-PK");
+
+        const btn = document.createElement("button");
+        btn.className = "btn";
+        btn.textContent = "Order on WhatsApp";
+        btn.style.width = "100%";
+
+        btn.onclick = () => orderProduct(p.name, p.price);
+
+        body.append(title, desc, price, btn);
+        card.appendChild(body);
+        grid.appendChild(card);
+    });
 }
 
-function searchProducts(){
-  const query=document.getElementById("searchInput").value.toLowerCase().trim();
-  renderProducts(products.filter(p=>
-    (p.name+" "+p.category+" "+p.description).toLowerCase().includes(query)
-  ));
+function orderProduct(name, price) {
+    const message =
+        "Assalam-o-Alaikum! I want to order: " + name +
+        "\nPrice: Rs. " + Number(price).toLocaleString("en-PK") +
+        "\nPlease confirm availability and delivery.";
+
+    const url = "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(message);
+
+    window.open(url, "_blank");
 }
 
-document.getElementById("searchInput").addEventListener("keydown",e=>{
-  if(e.key==="Enter") searchProducts();
-});
+function filterProducts(category) {
+    activeCategory = category;
+    applyFilters();
+}
 
-renderProducts(products);
+function applyFilters() {
+    const query = document.getElementById("searchInput")
+        .value.toLowerCase().trim();
+
+    const filtered = products.filter(p => {
+        const categoryName = p.category?.name || "";
+        const text = (
+            p.name + " " +
+            categoryName + " " +
+            (p.description || "")
+        ).toLowerCase();
+
+        const matchesSearch = text.includes(query);
+
+        const matchesCategory =
+            activeCategory === "all" ||
+            categoryName.toLowerCase().includes(
+                activeCategory.toLowerCase()
+            );
+
+        return matchesSearch && matchesCategory;
+    });
+
+    renderProducts(filtered);
+}
+
+function searchProducts() {
+    applyFilters();
+}
+
+document.getElementById("searchInput").addEventListener(
+    "keydown", event => {
+        if (event.key === "Enter") searchProducts();
+    }
+);
+
+loadProducts();
 </script>
 </body>
 </html>
