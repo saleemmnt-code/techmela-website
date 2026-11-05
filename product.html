@@ -1,0 +1,782 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="theme.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details | TechMela</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #f5f7fb;
+    background:
+        radial-gradient(ellipse at 50% 35%, #09283a 0%, #031521 55%, #00101b 100%);
+}
+
+header {
+    min-height: 90px;
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: #03131f;
+    border-bottom: 1px solid #254354;
+}
+
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #00e879;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+nav a:hover {
+    color: #00e879;
+}
+
+.container {
+    width: 94%;
+    max-width: 1450px;
+    margin: auto;
+}
+
+.breadcrumb {
+    padding: 28px 0;
+    color: #c5d4df;
+    border-bottom: 1px solid #244052;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+.breadcrumb a {
+    color: #00e879;
+    text-decoration: none;
+}
+
+.product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    align-items: start;
+    padding-bottom: 70px;
+}
+
+.gallery-main {
+    position: relative;
+    height: 650px;
+    border: 4px solid #00e879;
+    border-radius: 27px;
+    background: #071a27;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,232,121,.18);
+}
+
+.gallery-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
+    cursor: zoom-in;
+}
+
+.zoom-label {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.65);
+    border: 1px solid #00e879;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    pointer-events: none;
+}
+
+.gallery-thumbnails {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.thumb {
+    width: 105px;
+    height: 105px;
+    padding: 4px;
+    background: #102b3b;
+    border: 2px solid #71818e;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.thumb.active {
+    border: 3px solid #00e879;
+    box-shadow: 0 0 12px rgba(0,232,121,.3);
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.product-info h1 {
+    font-size: 40px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+}
+
+.price {
+    font-size: 38px;
+    font-weight: bold;
+    color: #00e879;
+    margin-bottom: 20px;
+}
+
+.product-meta {
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: #071e2c;
+    border: 1px solid #245064;
+    border-radius: 15px;
+    padding: 17px 10px;
+    margin-bottom: 30px;
+}
+
+.meta-item {
+    font-size: 14px;
+    color: #e7edf3;
+}
+
+.meta-item strong {
+    color: #00e879;
+}
+
+.available {
+    color: #00e879;
+}
+
+.unavailable {
+    color: #ff7777;
+}
+
+.tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 17px 8px;
+    color: white;
+    background: #102b3b;
+    border: 1px solid #28516a;
+    border-radius: 15px 15px 0 0;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.tab-button.active {
+    color: #001a12;
+    background: #00e879;
+    border-color: #00e879;
+}
+
+.tab-content {
+    min-height: 320px;
+    padding: 25px;
+    background: rgba(5,24,36,.95);
+    border: 1px solid #00c96b;
+    border-radius: 0 0 18px 18px;
+    line-height: 1.8;
+    color: #e2eaf0;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.tab-content h3 {
+    color: #00e879;
+    margin-top: 0;
+}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.feature-item {
+    padding: 9px 0;
+}
+
+.feature-item::before {
+    content: "✓";
+    color: #00e879;
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.spec-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.spec-table td {
+    padding: 12px;
+    border-bottom: 1px solid #294456;
+}
+
+.spec-table td:first-child {
+    color: #00e879;
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 60px;
+    padding: 12px;
+    border-radius: 13px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.whatsapp-btn {
+    background: #00b94f;
+    border: 2px solid #00e879;
+    color: white;
+}
+
+.back-btn {
+    background: #071b29;
+    border: 2px solid white;
+    color: white;
+}
+
+.btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.message {
+    padding: 30px;
+    color: #d5e2eb;
+    text-align: center;
+}
+
+#imageViewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,.94);
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+#imageViewer img {
+    max-width: 95%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+#imageViewer button {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+@media(max-width: 900px) {
+    .product-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-main {
+        height: 480px;
+    }
+
+    .product-info h1 {
+        font-size: 32px;
+    }
+}
+
+@media(max-width: 600px) {
+    header {
+        padding: 15px 4%;
+    }
+
+    .logo {
+        font-size: 28px;
+    }
+
+    nav {
+        gap: 14px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    .breadcrumb {
+        padding: 18px 0;
+        font-size: 12px;
+    }
+
+    .gallery-main {
+        height: 350px;
+        border-radius: 18px;
+    }
+
+    .thumb {
+        width: 72px;
+        height: 72px;
+    }
+
+    .product-info h1 {
+        font-size: 27px;
+    }
+
+    .price {
+        font-size: 30px;
+    }
+
+    .product-meta {
+        justify-content: flex-start;
+    }
+
+    .meta-item {
+        width: 100%;
+        padding: 4px;
+    }
+
+    .tab-button {
+        font-size: 12px;
+        padding: 13px 4px;
+    }
+
+    .tab-content {
+        padding: 17px;
+    }
+
+    .feature-list {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        min-height: 55px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">Tech<span>Mela</span></a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="index.html#news">Tech News</a>
+        <a href="index.html#contact">Contact</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        &nbsp; › &nbsp;
+        <a href="shop.html">Shop</a>
+        &nbsp; › &nbsp;
+        <span id="breadcrumbName">Product Details</span>
+    </div>
+
+    <div id="productDetails" class="message">
+        Loading product details...
+    </div>
+
+</main>
+
+<div id="imageViewer" onclick="closeViewer()">
+    <button onclick="closeViewer()">×</button>
+    <img id="viewerImage" src="" alt="Product enlarged">
+</div>
+
+<script>
+const API_URL =
+    "https://techmela-website.onrender.com/api/products/";
+
+const WHATSAPP_NUMBER = "923299127847";
+
+let currentProduct = null;
+let productImages = [];
+
+async function loadProductDetails() {
+    const container = document.getElementById("productDetails");
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    if (!productId) {
+        container.textContent = "Product ID not found.";
+        return;
+    }
+
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("API request failed");
+        }
+
+        const data = await response.json();
+        const products = Array.isArray(data)
+            ? data
+            : (data.results || []);
+
+        currentProduct = products.find(
+            p => String(p.id) === String(productId)
+        );
+
+        if (!currentProduct) {
+            container.textContent = "Product not found.";
+            return;
+        }
+
+        const p = currentProduct;
+
+        productImages = (p.images || [])
+            .map(item => item.image)
+            .filter(Boolean)
+            .map(url => url.replace(/^http:\/\//, "https://"));
+
+        if (productImages.length === 0 && p.image_url) {
+            productImages.push(
+                p.image_url.replace(/^http:\/\//, "https://")
+            );
+        }
+
+        renderProduct(p);
+
+    } catch (error) {
+        container.textContent =
+            "Unable to load product. Please refresh the page.";
+
+        console.error(error);
+    }
+}
+
+function renderProduct(p) {
+    const container = document.getElementById("productDetails");
+
+    document.title = (p.name || "Product") + " | TechMela";
+
+    document.getElementById("breadcrumbName").textContent =
+        p.name || "Product";
+
+    const available = p.is_available === true;
+
+    const imageHTML = productImages.length
+    ? `<img id="mainProductImage"
+        src="${productImages[0]}"
+        alt="Product image"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        onclick="openViewer()">`
+    : `<div class="message">Product image not available</div>`;
+
+    const thumbnailsHTML = productImages.map((url, index) => `
+        <button class="thumb ${index === 0 ? "active" : ""}"
+                onclick="changeImage(${index})"
+                aria-label="View product image ${index + 1}">
+            <img
+    src="${url}"
+    alt="Product thumbnail ${index + 1}"
+    loading="lazy"
+    decoding="async"
+        </button>
+    `).join("");
+
+    container.className = "product-layout";
+
+    container.innerHTML = `
+        <section class="gallery">
+            <div class="gallery-main">
+                ${imageHTML}
+                <div class="zoom-label">⌕</div>
+            </div>
+
+            <div class="gallery-thumbnails" id="thumbnails">
+                ${thumbnailsHTML}
+            </div>
+        </section>
+
+        <section class="product-info">
+
+            <h1 id="productName"></h1>
+
+            <div class="price" id="productPrice"></div>
+
+            <div class="product-meta">
+                <div class="meta-item">
+                    Category: <strong id="productCategory"></strong>
+                </div>
+
+                <div class="meta-item">
+                    Brand: <strong id="productBrand"></strong>
+                </div>
+
+                <div class="meta-item" id="availability"></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active"
+                    onclick="showTab('overview', this)">
+                    Overview
+                </button>
+
+                <button class="tab-button"
+                    onclick="showTab('features', this)">
+                    Key Features
+                </button>
+
+                <button class="tab-button"
+                    onclick="showTab('specifications', this)">
+                    Specifications
+                </button>
+            </div>
+
+            <div class="tab-content">
+
+                <div class="tab-panel active" id="overview">
+                    <h3>Product Description</h3>
+                    <div id="productDescription"></div>
+                </div>
+
+                <div class="tab-panel" id="features">
+                    <h3>Key Features</h3>
+                    <div class="feature-list" id="featureList"></div>
+                </div>
+
+                <div class="tab-panel" id="specifications">
+                    <h3>Product Specifications</h3>
+                    <table class="spec-table">
+                        <tbody id="specTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn whatsapp-btn"
+                        id="orderButton">
+                        WhatsApp Order
+                    </button>
+
+                    <a href="shop.html" class="btn back-btn">
+                        ← Back to Shop
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    `;
+
+    document.getElementById("productName").textContent =
+        p.name || "Product";
+
+    document.getElementById("productPrice").textContent =
+        "Rs. " + Number(p.price || 0).toLocaleString("en-PK");
+
+    document.getElementById("productCategory").textContent =
+        p.category?.name || "Not specified";
+
+    document.getElementById("productBrand").textContent =
+        p.brand?.name || "Not specified";
+
+    const availability = document.getElementById("availability");
+
+    availability.textContent = available
+        ? "✓ Available"
+        : "Currently Unavailable";
+
+    availability.className = "meta-item " +
+        (available ? "available" : "unavailable");
+
+    document.getElementById("productDescription").textContent =
+        p.description || "No description available.";
+
+    // Basic feature list from the product description.
+    const featureLines = (p.description || "")
+        .split(/\n/)
+        .map(line => line.replace(/^[\s\-•✓✔⚡🔹]+/, "").trim())
+        .filter(line => line.length > 2)
+        .slice(0, 8);
+
+    document.getElementById("featureList").innerHTML =
+        featureLines.length
+        ? featureLines.map(feature =>
+            `<div class="feature-item"></div>`
+          ).join("")
+        : `<div class="feature-item">Product information available in Overview.</div>`;
+
+    document.querySelectorAll(".feature-item").forEach((element, index) => {
+        if (featureLines[index]) {
+            element.textContent = featureLines[index];
+        }
+    });
+
+    const specs = [
+        ["Product", p.name || "Not specified"],
+        ["Category", p.category?.name || "Not specified"],
+        ["Brand", p.brand?.name || "Not specified"],
+        ["Price", "Rs. " + Number(p.price || 0).toLocaleString("en-PK")],
+        ["Availability", available ? "Available" : "Unavailable"]
+    ];
+
+    document.getElementById("specTable").innerHTML =
+        specs.map(([key, value]) =>
+            `<tr><td></td><td></td></tr>`
+        ).join("");
+
+    document.querySelectorAll("#specTable tr").forEach((row, index) => {
+        row.children[0].textContent = specs[index][0];
+        row.children[1].textContent = specs[index][1];
+    });
+
+    const orderButton = document.getElementById("orderButton");
+
+    orderButton.disabled = !available;
+
+    if (!available) {
+        orderButton.textContent = "Currently Unavailable";
+    } else {
+        orderButton.onclick = orderOnWhatsApp;
+    }
+}
+
+function changeImage(index) {
+    if (!productImages[index]) return;
+
+    const mainImage = document.getElementById("mainProductImage");
+
+    if (mainImage) {
+        mainImage.src = productImages[index];
+    }
+
+    document.querySelectorAll(".thumb").forEach((thumb, i) => {
+        thumb.classList.toggle("active", i === index);
+    });
+}
+
+function showTab(tabId, button) {
+    document.querySelectorAll(".tab-panel").forEach(panel => {
+        panel.classList.remove("active");
+    });
+
+    document.querySelectorAll(".tab-button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    document.getElementById(tabId).classList.add("active");
+    button.classList.add("active");
+}
+
+function orderOnWhatsApp() {
+    if (!currentProduct) return;
+
+    const message =
+        "Assalam-o-Alaikum! I want to order: " +
+        currentProduct.name +
+        "\nPrice: Rs. " +
+        Number(currentProduct.price || 0).toLocaleString("en-PK");
+
+    const url = "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(message);
+
+    window.open(url, "_blank");
+}
+
+function openViewer() {
+    const image = document.getElementById("mainProductImage");
+
+    if (!image) return;
+
+    document.getElementById("viewerImage").src = image.src;
+    document.getElementById("imageViewer").style.display = "flex";
+}
+
+function closeViewer() {
+    document.getElementById("imageViewer").style.display = "none";
+}
+
+loadProductDetails();
+</script>
+
+</body>
+</html>

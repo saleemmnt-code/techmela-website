@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="theme.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop - TechMela</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    color: #222;
+}
+
+header {
+    background: #111827;
+    color: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+header h2 {
+    margin: 0;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.container {
+    width: 92%;
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.toolbar input,
+.toolbar select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.toolbar input {
+    flex: 1;
+    min-width: 180px;
+}
+
+#shopProductGrid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    border-radius: 9px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    width: 100%;
+    height: 170px;
+    object-fit: contain;
+    background: white;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card h3 {
+    font-size: 16px;
+    margin: 12px 0 7px;
+}
+
+.product-description {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price {
+    color: #07833d;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.btn {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: #087b43;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 7px;
+    font-size: 13px;
+}
+
+.details-btn {
+    background: #172554;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 30px 0;
+}
+
+.pagination button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    background: #111827;
+    color: white;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    #shopProductGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        padding: 8px;
+    }
+
+    .card img {
+        height: 130px;
+    }
+
+    .card h3 {
+        font-size: 14px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 9px 5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>TechMela</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <h2>All Products</h2>
+    <p>Explore our latest products and accessories.</p>
+
+    <div class="toolbar">
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search products..."
+        >
+
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
+        </select>
+    </div>
+
+    <div id="shopProductGrid">
+        <p>Loading products...</p>
+    </div>
+
+    <div class="pagination">
+        <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+
+</main>
+
+<script>
+const API_URL = "https://techmela-website.onrender.com/api/products/";
+const WHATSAPP_NUMBER = "923299127847";
+
+let allProducts = [];
+let filteredProducts = [];
+let currentPage = 1;
+const productsPerPage = 10;
+
+async function loadProducts() {
+    const grid = document.getElementById("shopProductGrid");
+
+    try {
+        const response = await fetch(API_URL, {
+    method: "GET",
+    headers: {
+        "Accept": "application/json"
+    },
+    cache: "default"
+});
+
+        if (!response.ok) {
+            throw new Error("Unable to load products");
+        }
+
+        const data = await response.json();
+
+        allProducts = Array.isArray(data) ? data : (data.results || []);
+        filteredProducts = [...allProducts];
+
+        loadCategories();
+        renderProducts();
+
+    } catch (error) {
+        grid.innerHTML = "<p>Products load nahi ho sake. Please refresh the page.</p>";
+        console.error(error);
+    }
+}
+
+function loadCategories() {
+    const select = document.getElementById("categoryFilter");
+    const categories = [...new Set(
+        allProducts
+            .map(p => p.category?.name)
+            .filter(Boolean)
+    )];
+
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+    });
+}
+
+function applyFilters() {
+    const query = document.getElementById("searchInput")
+        .value.toLowerCase().trim();
+
+    const category = document.getElementById("categoryFilter").value;
+
+    filteredProducts = allProducts.filter(p => {
+        const categoryName = p.category?.name || "";
+
+        const matchesSearch = (
+            (p.name || "") + " " +
+            (p.description || "") + " " +
+            categoryName
+        ).toLowerCase().includes(query);
+
+        const matchesCategory =
+            category === "all" || categoryName === category;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    currentPage = 1;
+    renderProducts();
+}
+
+function renderProducts() {
+    const grid = document.getElementById("shopProductGrid");
+    grid.innerHTML = "";
+
+    const start = (currentPage - 1) * productsPerPage;
+    const pageProducts = filteredProducts.slice(
+        start,
+        start + productsPerPage
+    );
+
+    if (!pageProducts.length) {
+        grid.innerHTML = "<p>No products found.</p>";
+    }
+
+    pageProducts.forEach(p => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.style.cursor = "pointer";
+
+card.onclick = () => {
+    window.location.href =
+        "product.html?id=" + encodeURIComponent(p.id);
+};
+
+        const imageUrl =
+            (p.images && p.images.length > 0 && p.images[0].image) ||
+            p.image_url;
+
+        if (imageUrl) {
+            const img = document.createElement("img");
+            img.src = imageUrl.replace(/^http:\/\//, "https://");
+            img.alt = p.name || "Product";
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onerror = () => img.style.display = "none";
+            card.appendChild(img);
+        }
+
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        const title = document.createElement("h3");
+        title.textContent = p.name || "Product";
+
+        const desc = document.createElement("p");
+        desc.className = "product-description";
+        desc.textContent = p.description || "";
+
+        const price = document.createElement("div");
+        price.className = "price";
+        price.textContent =
+            "Rs. " + Number(p.price || 0).toLocaleString("en-PK");
+
+        const details = document.createElement("a");
+        details.className = "btn details-btn";
+        details.textContent = "View Details";
+        details.href = "product.html?id=" + encodeURIComponent(p.id);
+
+        const order = document.createElement("button");
+        order.className = "btn";
+        order.textContent = "Order on WhatsApp";
+
+        order.onclick = () => {
+            const message = "Assalam-o-Alaikum! I want to order: " +
+                p.name + "\nPrice: Rs. " +
+                Number(p.price || 0).toLocaleString("en-PK");
+
+            window.open(
+                "https://wa.me/" + WHATSAPP_NUMBER +
+                "?text=" + encodeURIComponent(message),
+                "_blank"
+            );
+        };
+
+        body.append(title, desc, price, details, order);
+        card.appendChild(body);
+        grid.appendChild(card);
+    });
+
+    updatePagination();
+}
+
+function updatePagination() {
+    const totalPages = Math.max(
+        1,
+        Math.ceil(filteredProducts.length / productsPerPage)
+    );
+
+    document.getElementById("pageInfo").textContent =
+        "Page " + currentPage + " of " + totalPages;
+
+    document.getElementById("prevBtn").disabled =
+        currentPage <= 1;
+
+    document.getElementById("nextBtn").disabled =
+        currentPage >= totalPages;
+}
+
+function changePage(direction) {
+    const totalPages = Math.max(
+        1,
+        Math.ceil(filteredProducts.length / productsPerPage)
+    );
+
+    currentPage = Math.max(
+        1,
+        Math.min(totalPages, currentPage + direction)
+    );
+
+    renderProducts();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("searchInput").addEventListener(
+    "input", applyFilters
+);
+
+document.getElementById("categoryFilter").addEventListener(
+    "change", applyFilters
+);
+
+loadProducts();
+</script>
+
+</body>
+</html>

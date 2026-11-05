@@ -1,0 +1,189 @@
+
+/* =================================
+   TECHMELA PREMIUM DARK THEME
+================================= */
+
+:root {
+    --tm-bg: #031521;
+    --tm-surface: #071e2c;
+    --tm-card: #0a2636;
+    --tm-green: #00e879;
+    --tm-green-dark: #00b94f;
+    --tm-white: #ffffff;
+    --tm-text: #dce8ef;
+    --tm-muted: #9bb0bf;
+    --tm-border: #24475a;
+    --tm-radius: 14px;
+}
+
+/* Global */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--tm-bg) !important;
+    color: var(--tm-text) !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--tm-white) !important;
+}
+
+p, span, label {
+    color: inherit;
+}
+
+/* Header */
+header {
+    background: #03131f !important;
+    border-bottom: 1px solid var(--tm-border);
+}
+
+/* Navigation */
+nav a,
+header a {
+    transition: color .2s ease;
+}
+
+nav a:hover,
+header a:hover {
+    color: var(--tm-green) !important;
+}
+
+/* Sections */
+section {
+    background-color: transparent;
+}
+
+/* Product Cards */
+.card {
+    background: var(--tm-card) !important;
+    color: var(--tm-text) !important;
+    border: 1px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    overflow: hidden;
+    transition: transform .25s ease, border-color .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--tm-green);
+    box-shadow: 0 8px 25px rgba(0,232,121,.10);
+}
+
+.card h3 {
+    color: var(--tm-white) !important;
+}
+
+.card p {
+    color: var(--tm-muted) !important;
+}
+
+/* Prices */
+.price {
+    color: var(--tm-green) !important;
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn,
+button.btn {
+    background: var(--tm-green-dark);
+    color: #ffffff !important;
+    border: 1px solid var(--tm-green);
+    border-radius: 9px;
+    font-weight: bold;
+    transition: .2s ease;
+}
+
+.btn:hover,
+button.btn:hover {
+    background: var(--tm-green);
+    color: #001b10 !important;
+    box-shadow: 0 0 14px rgba(0,232,121,.25);
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+    background: var(--tm-surface) !important;
+    color: var(--tm-white) !important;
+    border: 1px solid var(--tm-border) !important;
+    border-radius: 8px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--tm-muted);
+}
+
+/* Category Buttons */
+.categories button {
+    background: var(--tm-surface);
+    color: var(--tm-white);
+    border: 1px solid var(--tm-border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.categories button:hover,
+.categories button.active {
+    background: var(--tm-green);
+    color: #001b10;
+    border-color: var(--tm-green);
+}
+
+/* News and Content Cards */
+.news-card,
+article {
+    border-radius: var(--tm-radius);
+}
+
+/* Links */
+a {
+    transition: color .2s ease;
+}
+
+/* Footer */
+footer {
+    background: #020e17 !important;
+    color: var(--tm-text) !important;
+    border-top: 1px solid var(--tm-border);
+}
+
+footer a {
+    color: var(--tm-green);
+}
+
+/* Selection */
+::selection {
+    background: var(--tm-green);
+    color: #001b10;
+}
+.site-logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.site-logo img {
+    width: 240px;
+    height: 75px;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .site-logo img {
+        width: 175px;
+        height: 58px;
+    }
+}

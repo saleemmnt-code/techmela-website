@@ -1,4 +1,5 @@
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
@@ -18,6 +19,7 @@ def home(request):
     )
 
 
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class ProductListAPI(ListAPIView):
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
