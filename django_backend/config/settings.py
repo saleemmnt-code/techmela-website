@@ -34,15 +34,17 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     ".onrender.com",
     "admin.techmela.digital",
+    "techmela.digital",
     "www.techmela.digital",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "https://techmela.digital",
+    "https://www.techmela.digital",
     "https://admin.techmela.digital",
-    "https://*.onrender.com",
+    "https://techmela-website.onrender.com",
 ]
-
-
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Application definition
 
 INSTALLED_APPS = [
